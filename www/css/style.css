@@ -1,0 +1,86 @@
+/*
+    titulos: font-family: 'Montserrat', sans-serif;
+    laranja BUSCAR: #e76012
+*/
+
+.scroll {
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+
+.tabs-light > .tabs, .tabs.tabs-light {
+    background-color: #fff;
+    color: #e76012;
+}
+
+#artigo img {
+	width: 100%;
+}
+
+#post-card {
+	padding: 0;
+}
+
+#post-card h2 {
+	white-space: normal;
+    position: absolute;
+    top: 0;
+    padding: 1em;
+    color: black;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: left;
+}
+
+#post-card img {
+	width: 100%;
+}
+
+#home-header .bar .title {
+    height: 75px !important;
+}
+#home-header .bar {
+    height: 75px !important;
+}
+
+#home, ion-content {
+    padding: 0;
+    margin: 0;
+    height: 96%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+#home .row {
+    height: 33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#home h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin: 0 auto;
+    font-size: 2.5em;
+    color: #ddd;
+}
+
+#home .row-eventos {
+    background: #ad480e;
+}
+
+#home .row-blog {
+    background: #d75911;
+}
+
+#home .row-sobre {
+    background: #ed6313;
+}
