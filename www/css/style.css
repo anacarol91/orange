@@ -1,86 +1,116 @@
-/*
-    titulos: font-family: 'Montserrat', sans-serif;
-    laranja BUSCAR: #e76012
-*/
+    /*
+        titulos: font-family: 'Montserrat', sans-serif;
+        laranja BUSCAR: #e76012
+    */
 
-.scroll {
-    width: 100%;
-}
+    ion-content {
+        background-color: #f6f6f6;
+    }
+    
+    .scroll {
+        width: 100%;
+    }
 
-a {
-    text-decoration: none;
-}
+    a {
+        text-decoration: none;
+    }
 
-.tabs-light > .tabs, .tabs.tabs-light {
-    background-color: #fff;
-    color: #e76012;
-}
+    .tabs-light > .tabs, .tabs.tabs-light {
+        background-color: #fff;
+        color: #e76012;
+    }
 
-#artigo img {
-	width: 100%;
-}
 
-#post-card {
-	padding: 0;
-}
+/* ARTIGO */
+    #artigo img {
+    	width: 100%;
+    }
 
-#post-card h2 {
-	white-space: normal;
-    position: absolute;
-    top: 0;
-    padding: 1em;
-    color: black;
-    font-size: 1.5em;
-    font-weight: bold;
-    text-align: left;
-}
+    #artigo h2 {
+        font-size: 2.2em;
+        font-family: 'Montserrat', sans-serif;
+        text-align: left;
+        color: #e76012;
+    }
 
-#post-card img {
-	width: 100%;
-}
+    #artigo p {
+        font-size: 1.1em;
+        color: #666;
+        text-align: justify;
+    }
 
-#home-header .bar .title {
-    height: 75px !important;
-}
-#home-header .bar {
-    height: 75px !important;
-}
+/**********/    
 
-#home, ion-content {
-    padding: 0;
-    margin: 0;
-    height: 96%;
-    display: flex;
-    align-content: center;
-    justify-content: center;
-}
 
-#home .row {
-    height: 33%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
+/* POST CARD */
+    #post-card {
+    	padding: 0;
+    }
 
-#home h2 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    margin: 0 auto;
-    font-size: 2.5em;
-    color: #ddd;
-}
+    #post-card h2 {
+    	white-space: normal;
+        position: absolute;
+        top: 0;
+        padding: 1em;
+        color: black;
+        font-size: 1.5em;
+        font-weight: bold;
+        text-align: left;
+    }
 
-#home .row-eventos {
-    background: #ad480e;
-}
+    #post-card img {
+    	width: 100%;
+    }
+/*************/    
 
-#home .row-blog {
-    background: #d75911;
-}
 
-#home .row-sobre {
-    background: #ed6313;
-}
+/* HOME HEADER */
+    #home-header .bar .title {
+        height: 75px !important;
+    }
+    #home-header .bar {
+        height: 75px !important;
+    }
+/***************/
+
+
+/* HOME */
+    #home, ion-content {
+        padding: 0;
+        margin: 0;
+        height: 96%;
+        display: flex;
+        align-content: center;
+        justify-content: center;
+    }
+
+    #home .row {
+        height: 33%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    #home h2 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 300;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        margin: 0 auto;
+        font-size: 2.5em;
+        color: #ddd;
+    }
+
+    #home .row-eventos {
+        background: #ad480e;
+    }
+
+    #home .row-blog {
+        background: #d75911;
+    }
+
+    #home .row-sobre {
+        background: #ed6313;
+    }
+/********/
