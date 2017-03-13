@@ -5,6 +5,7 @@ angular.module('starter.controllers', [])
 
     // You can change this url to experiment with other endpoints
     var postsApi = 'http://marketingpordados.com/wp-json/wp/v2/posts';
+                    
     console.log("Enter PostsCtrl");
 
     $ionicLoading.show();
@@ -26,7 +27,7 @@ angular.module('starter.controllers', [])
 
   $scope.refreshPosts = function () {
     var postsApi = 'http://marketingpordados.com/wp-json/wp/v2/posts';
-    
+
     $http.get( postsApi ).
       success(function(data, status, headers, config) {
         $scope.posts = data;
