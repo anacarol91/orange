@@ -20,6 +20,17 @@
         color: #e76012;
     }
 
+/* SOBRE */
+
+#sobre {
+    background-color: #f6f6f6;
+}
+
+#sobre img {
+    width: 100%;
+    margin-top: 60%;
+}
+/********/
 
 /* ARTIGO */
     #artigo img {

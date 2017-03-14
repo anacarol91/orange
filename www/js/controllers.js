@@ -69,7 +69,7 @@ angular.module('starter.controllers', [])
   $scope.$on('$ionicView.enter', function(e) {
 
     // You can change this url to experiment with other endpoints
-    var eventosApi = 'http://marketingpordados.com/wp-json/wp/v2/posts?filter[category_name]=eventos';
+    var eventosApi = 'http://marketingpordados.com/wp-json/wp/v2/posts?filter[post_type]=vendas';
 
     console.log("Enter EventosCtrl");
 
@@ -90,7 +90,7 @@ angular.module('starter.controllers', [])
   });
 
   $scope.refreshEventos = function () {
-    var eventosApi = 'http://marketingpordados.com/wp-json/wp/v2/posts?filter[category_name]=eventos';
+    var eventosApi = 'http://marketingpordados.com/wp-json/wp/v2/posts?filter[category_name]=vendas';
 
     $ionicLoading.show();
 
