@@ -17,7 +17,27 @@
 
     .tabs-light > .tabs, .tabs.tabs-light {
         background-color: #fff;
+        color: #444;
+    }
+
+    .tab-on {
+        color:  #e76012 !important;
+    }
+
+    .bar-light .button.button-clear, .bar.bar-light .title {
         color: #e76012;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 20px;    
+    }
+
+    p {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 1.1em !important;
+    }
+
+    #events-header {
+        width: 41%;
+        margin-top: 5px;
     }
 
 /* SOBRE */
@@ -110,6 +130,16 @@
     #post-card img {
     	width: 100%;
     }
+
+    #logo-blog {
+        width: 38%;
+        margin-top: 8px;
+    }
+
+    #logo-artigo {
+        width: 50%;
+        margin-top: 6px;
+    }
 /*************/
 
 
@@ -124,21 +154,31 @@
 
 
 /* HOME */
-    #home, ion-content {
+    #home {
         padding: 0;
         margin: 0;
-        height: 96%;
-        display: flex;
-        align-content: center;
-        justify-content: center;
+        background-color: #e76012;
+        text-align: center;
     }
 
-    #home .row {
-        height: 33%;
+    #home .box {
+      background: white;
+      padding: 15px 15px 30px;
+    }
+
+    .orange-box {
+        height: 50%;
         display: flex;
+        flex-flow: column;
         justify-content: center;
         align-items: center;
-        width: 100%;
+    }
+
+    #home p {
+        font-size: 1.2em !important;
+        color: #666;
+        line-height: 20px;
+        letter-spacing: 1.5px;
     }
 
     #home h2 {
@@ -151,15 +191,45 @@
         color: #ddd;
     }
 
-    #home .row-eventos {
-        background: #ad480e;
+    #home .button {
+        width: 90%;
+        margin: 10% 0;        
+        height: 55px;
+        line-height: 50px;
+        border-radius: 7px;
+        font-family: 'Montserrat', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-size: 1.5em;
+        font-weight: 400;        
     }
 
-    #home .row-blog {
-        background: #d75911;
+    .btn-eventos {
+        color: #e76012;
+        background: #fff;
     }
 
-    #home .row-sobre {
-        background: #ed6313;
+    .btn-blog {
+        border: 2px solid #fff;
+        background: transparent;
+        color: #fff;
+    }
+
+     .btn-blog.activated {
+        color: #e76012;
+        background: #fff;
+        border: none;
+    }
+
+    .btn-eventos.activated {
+        border: 2px solid #fff;
+        background: transparent;
+        color: #fff;
+    }
+
+
+    #logo-dash {
+        width: 100%;
+        margin: 10% 0 5%;
     }
 /********/

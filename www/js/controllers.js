@@ -3,24 +3,24 @@ angular.module('starter.controllers', [])
 .controller('PostsCtrl', function($scope, $http, Posts, $ionicLoading) {
   $scope.$on('$ionicView.enter', function(e) {
 
+    $ionicLoading.show();
     // You can change this url to experiment with other endpoints
     var postsApi = 'http://marketingpordados.com/wp-json/wp/v2/posts';
 
     console.log("Enter PostsCtrl");
-
-    $ionicLoading.show();
+    
 
     // This should go in a service so we can reuse it
     $http.get( postsApi ).
       success(function(data, status, headers, config) {
+        $ionicLoading.hide();
         $scope.posts = data;
         console.log( data );
-
-        $ionicLoading.hide();
+        
       }).
       error(function(data, status, headers, config) {
-        console.log( 'Post load error.' );
         $ionicLoading.hide();
+        console.log( 'Post load error.' );
       });
   });
 
@@ -69,7 +69,7 @@ angular.module('starter.controllers', [])
   $scope.$on('$ionicView.enter', function(e) {
 
     // You can change this url to experiment with other endpoints
-    var eventosApi = 'http://marketingpordados.com/wp-json/wp/v2/posts?filter[post_type]=vendas';
+    var eventosApi = 'http://marketingpordados.com/acf-to-rest/wp-json/acf/v3/evento';
 
     console.log("Enter EventosCtrl");
 
@@ -90,7 +90,7 @@ angular.module('starter.controllers', [])
   });
 
   $scope.refreshEventos = function () {
-    var eventosApi = 'http://marketingpordados.com/wp-json/wp/v2/posts?filter[category_name]=vendas';
+    var eventosApi = 'http://marketingpordados.com/wp-json/wp/v2/posts?filter[category_name]=eventos/';
 
     $ionicLoading.show();
 
@@ -109,7 +109,10 @@ angular.module('starter.controllers', [])
 
     $scope.$broadcast('scroll.refreshComplete');
   }
-})
+
+
+
+  })
 
 .controller('EventoCtrl', function($scope, $stateParams, $http, Evento) {
   // we get the postID from $stateParams.postId, the query the api for that post
@@ -130,5 +133,13 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('DashCtrl', function($scope) {})
-.controller('SobreCtrl', function($scope) {})
+.controller('DashCtrl', function($scope, $state) {
+
+  $scope.eventos = function() {
+    $state.go('tab.eventos');
+  }
+
+  $scope.blog = function() {
+    $state.go('tab.blog');
+  }
+})

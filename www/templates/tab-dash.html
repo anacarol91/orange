@@ -1,14 +1,21 @@
-<ion-view hide-nav-bar="true" view-title="Home">    
+<ion-view hide-nav-bar="true" view-title="Home">     
+    
+  <ion-content id="home" class="padding" scroll="false">
 
-  <ion-content id="home" class="padding">
-     <a class="row row-eventos" href="#/tab/eventos">
-        <h2>Eventos</h2>
-     </a>
-     <a class="row row-blog" href="#/tab/blog">
-        <h2>Blog</h2>
-     </a>
-     <a class="row row-sobre" href="#/tab/sobre">
-        <h2>Sobre</h2>
-     </a>
+      <div class="box">
+        <img id="logo-dash" src="img/logo-orange.png" alt="">
+        <p>Fique por dentro dos eventos de marketing digital do Brasil e das matérias do blog Marketing por Dados em primeira mão.</p>
+      </div>
+
+    <div class="orange-box">
+        <button class="button btn-eventos" ng-click="eventos()">
+          Eventos
+        </button>
+
+        <button class="button btn-blog" ng-click="blog()">
+          Blog
+        </button>
+    </div>
+
   </ion-content>
 </ion-view>

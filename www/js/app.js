@@ -41,7 +41,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   $ionicConfigProvider.navBar.alignTitle('center');
   $ionicConfigProvider.navBar.positionPrimaryButtons('right');
   $ionicConfigProvider.views.swipeBackEnabled(true);
-  //$ionicConfigProvider.backButton.icon();
+  $ionicConfigProvider.backButton.icon('ion-android-arrow-back');
   $ionicConfigProvider.backButton.text(false);
   $ionicConfigProvider.backButton.previousTitleText(false);
   $ionicConfigProvider.form.toggle('small');
@@ -111,15 +111,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     })
 
-  .state('tab.sobre', {
-    url: '/sobre',
-    views: {
-      'tab-sobre': {
-        templateUrl: 'templates/tab-sobre.html',
-        controller: 'SobreCtrl'
-      }
-    }
-  });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');
