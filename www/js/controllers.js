@@ -69,7 +69,7 @@ angular.module('starter.controllers', [])
   $scope.$on('$ionicView.enter', function(e) {
 
     // You can change this url to experiment with other endpoints
-    var eventosApi = 'http://marketingpordados.com/acf-to-rest/wp-json/acf/v3/evento';
+    var eventosApi = 'http://marketingpordados.com/wp-json/acf/v2/evento';
 
     console.log("Enter EventosCtrl");
 
@@ -90,7 +90,7 @@ angular.module('starter.controllers', [])
   });
 
   $scope.refreshEventos = function () {
-    var eventosApi = 'http://marketingpordados.com/wp-json/wp/v2/posts?filter[category_name]=eventos/';
+    var eventosApi = 'http://marketingpordados.com/wp-json/acf/v2/evento';
 
     $ionicLoading.show();
 
@@ -114,9 +114,9 @@ angular.module('starter.controllers', [])
 
   })
 
-.controller('EventoCtrl', function($scope, $stateParams, $http, Evento) {
+.controller('EventoCtrl', function($scope, $stateParams, $http) {
   // we get the postID from $stateParams.postId, the query the api for that post
-  var singleEventoApi = 'http://marketingpordados.com/wp-json/wp/v2/posts?filter[category_name]=eventos/' + $stateParams.eventoId;
+  var singleEventoApi = 'http://marketingpordados.com/wp-json/acf/v2/evento/' + $stateParams.eventoId;
 
   $http.get( singleEventoApi ).
     success(function(data, status, headers, config) {

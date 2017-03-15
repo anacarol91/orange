@@ -8,13 +8,14 @@
 
      <ion-refresher on-refresh="refreshEventos()" pulling-icon="false"></ion-refresher>
 
-      <ion-list id="blog">
+      <ion-list id="evento">
 
-      <a class="card item tappable" ng-repeat="evento in eventos" type="item-text-wrap" href="#/tab/blog/{{post.id}}">
-        <img ng-src="{{evento.better_featured_image.source_url}}">
-        <p> {{evento.date | date: 'dd/MM/yy'}}</p>
-        <h2>{{evento.title.rendered}}</h2>
-        <!-- <p ng-bind-html="evento.excerpt.rendered"></p> -->
+      <a class="card item tappable" ng-repeat="evento in eventos" type="item-text-wrap" href="#/tab/eventos/{{evento.id}}">
+        <img ng-src="{{evento.imagem_evento}}">
+        <h2>{{evento.nome_do_evento}}</h2>
+        <p><i class="ion-ios-location-outline event-icon"></i> {{evento.local_evento}}</p>
+        <p><i class="ion-ios-clock-outline event-icon"></i> {{evento.data_evento | date: 'dd/MM/yy'}}</p>
+        
       </a>
     </ion-list>
   </ion-content>

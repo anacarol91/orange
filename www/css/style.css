@@ -106,10 +106,14 @@
         white-space: pre-wrap;
         font-family: 'Montserrat', sans-serif;
         color: #e76012;
+        font-size: 1.2em;
+        margin-top: 5px;
+
     }
 
     #blog p {
-
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1em;
     }
 
     #post-card {
@@ -233,3 +237,54 @@
         margin: 10% 0 5%;
     }
 /********/
+
+/* EVENTO */
+
+    #evento .item-content {
+        padding: 0.5em;
+    }
+
+    #evento img {
+        width: 100%;
+    }
+
+    #evento .card {
+        width: 100%;
+        margin: 10px 5px;
+        box-shadow: 0 2px 1px 0 #d6d6d6;
+        border-radius: 4px;
+        transform: translate3d(0,0,0);
+        transition-delay: .5s;
+        transition: transform .15s;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0.180392);
+        border: none;
+        padding: 0.5em;
+        width: 97%;
+    }
+
+    #evento .card.activated {
+        box-shadow: 0 2px 6px 2px #d6d6d6;
+        background-color: #fff;
+    }
+
+    #evento h2 {
+        white-space: pre-wrap;
+        font-family: 'Montserrat', sans-serif;
+        color: #e76012;
+        font-size: 1.2em;
+        margin-bottom: 8px;
+
+
+    }
+
+    #evento p {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1em;
+    }
+
+     .event-icon {
+        color: #e76012;
+        font-size: 1.2em;
+        margin-right: 5px;
+     }
+/*********/
