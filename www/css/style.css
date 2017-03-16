@@ -33,6 +33,7 @@
     p {
         font-family: 'Open Sans', sans-serif;
         font-size: 1.1em !important;
+        letter-spacing: 0.4px;
     }
 
     #events-header {
@@ -288,3 +289,13 @@
         margin-right: 5px;
      }
 /*********/
+
+/* EVENT DETAIL */
+    #event-detail .event-icon {
+        color: #e76012;
+        font-size: 1.7em;
+        margin-right: 7px;
+     }
+
+
+/****************/

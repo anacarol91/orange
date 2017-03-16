@@ -2,7 +2,7 @@
 <widget id="com.ionicframework.app790075" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Orange</name>
   <description>
-        An Ionic Framework and Cordova project.
+        Fique por dentro dos eventos de marketing digital do Brasil e das matérias do blog Marketing por Dados em primeira mão.
     </description>
   <author email="you@example.com" href="http://example.com/">
       Your Name Here
@@ -13,7 +13,7 @@
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
   <preference name="SplashScreenDelay" value="2000"/>
-  <preference name="FadeSplashScreenDuration" value="5000"/>
+  <preference name="FadeSplashScreenDuration" value="3000"/>
   <preference name="android-minSdkVersion" value="16"/>
   <preference name="BackupWebStorage" value="none"/>
   <preference name="SplashScreen" value="screen"/>
@@ -46,5 +46,8 @@
   <plugin name="cordova-plugin-splashscreen" spec="~4.0.2"/>
   <plugin name="cordova-plugin-console" spec="~1.0.6"/>
   <plugin name="ionic-plugin-keyboard" spec="~2.2.1"/>
+  <plugin name="phonegap-plugin-push" spec="~1.10.0">
+    <variable name="SENDER_ID" value="603641046333"/>
+  </plugin>
   <icon src="resources\android\icon\drawable-xhdpi-icon.png"/>
 </widget>

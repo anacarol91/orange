@@ -25,18 +25,18 @@ angular.module('starter.controllers', [])
   });
 
   $scope.refreshPosts = function () {
+    $ionicLoading.show();
     var postsApi = 'http://marketingpordados.com/wp-json/wp/v2/posts';
 
     $http.get( postsApi ).
       success(function(data, status, headers, config) {
+        $ionicLoading.hide();
         $scope.posts = data;
         console.log( data );
-
-        $ionicLoading.hide();
       }).
       error(function(data, status, headers, config) {
-        console.log( 'Post load error.' );
         $ionicLoading.hide();
+        console.log( 'Post load error.' );
       });
 
     $scope.$broadcast('scroll.refreshComplete');
@@ -67,25 +67,23 @@ angular.module('starter.controllers', [])
 
 .controller('EventosCtrl', function($scope, $ionicLoading, $http, Eventos) {
   $scope.$on('$ionicView.enter', function(e) {
+    $ionicLoading.show();
 
     // You can change this url to experiment with other endpoints
-    var eventosApi = 'http://marketingpordados.com/wp-json/acf/v2/evento';
+    var eventosApi = 'http://marketingpordados.com/wp-json/acf/v2/evento/?per_page=100';
 
-    console.log("Enter EventosCtrl");
-
-    $ionicLoading.show();
+    console.log("Enter EventosCtrl");    
 
     // This should go in a service so we can reuse it
     $http.get( eventosApi ).
       success(function(data, status, headers, config) {
+        $ionicLoading.hide();
         $scope.eventos = data;
         console.log( data );
-
-        $ionicLoading.hide();
       }).
       error(function(data, status, headers, config) {
-        console.log( 'Eventos load error.' );
         $ionicLoading.hide();
+        console.log( 'Eventos load error.' );
       });
   });
 
@@ -97,14 +95,13 @@ angular.module('starter.controllers', [])
     // This should go in a service so we can reuse it
     $http.get( eventosApi ).
       success(function(data, status, headers, config) {
+        $ionicLoading.hide();
         $scope.eventos = data;
         console.log( data );
-
-        $ionicLoading.hide();
       }).
       error(function(data, status, headers, config) {
-        console.log( 'Eventos load error.' );
         $ionicLoading.hide();
+        console.log( 'Eventos load error.' );
       });
 
     $scope.$broadcast('scroll.refreshComplete');
@@ -133,7 +130,12 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('DashCtrl', function($scope, $state) {
+.controller('DashCtrl', function($scope, $state, $ionicPush) {
+
+  $scope.$on('cloud:push:notification', function(event, data) {
+    var msg = data.message;
+   // alert(msg.title + ': ' + msg.text);
+  });
 
   $scope.eventos = function() {
     $state.go('tab.eventos');

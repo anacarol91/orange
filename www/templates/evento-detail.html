@@ -5,9 +5,12 @@
   The Friends service returns an array of friend data
 -->
 <ion-view view-title="{{evento.acf.nome_do_evento}}" id="artigo">
-  <ion-content class="padding">
+  <ion-content id="event-detail" class="padding">
     <img ng-src="{{evento.acf.imagem_evento}}">
-    <h2>{{evento.acf.nome_do_evento}}</h2>
+
+    <p style="font-size: 1.3em !important;"><i class="ion-ios-location-outline event-icon"></i> {{evento.acf.local_evento}}</p>
+    <p style="font-size: 1.3em !important;"><i class="ion-ios-clock-outline event-icon"></i> {{evento.acf.data_evento | date: 'dd/MM/yy'}}</p>
+    <br>
     <p ng-bind-html="evento.acf.descricao_do_evento"></p>
 
   </ion-content>

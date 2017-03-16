@@ -5,9 +5,9 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'ionic.cloud', 'starter.controllers', 'starter.services'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $ionicPush) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -25,10 +25,34 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         StatusBar.styleDefault();
       }
     }
+
+    $ionicPush.register().then(function(t) {
+      return $ionicPush.saveToken(t);
+    }).then(function(t) {
+      console.log('Token saved:', t.token);
+    });
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider, $compileProvider, $ionicConfigProvider) {
+.config(function($stateProvider, $urlRouterProvider, $compileProvider, $ionicConfigProvider, $ionicCloudProvider ) {
+
+  $ionicCloudProvider.init({
+    "core": {
+      "app_id": "0b857b9b"
+    },
+    "push": {
+      "sender_id": "603641046333",
+      "pluginConfig": {
+        "ios": {
+          "badge": true,
+          "sound": true
+        },
+        "android": {
+          "iconColor": "#343434"
+        }
+      }
+    }
+  });
 
   $compileProvider.imgSrcSanitizationWhitelist('img/'); // necessario para imagens
   $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel|img):/);
