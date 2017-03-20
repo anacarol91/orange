@@ -3,7 +3,12 @@ angular.module('starter.controllers', [])
 .controller('PostsCtrl', function($scope, $http, Posts, $ionicLoading) {
   $scope.$on('$ionicView.enter', function(e) {
 
-    $ionicLoading.show();
+    $ionicLoading.show({
+      delay: 0,
+      showBackdrop: true,
+      showDelay: 0
+    });
+    
     // You can change this url to experiment with other endpoints
     var postsApi = 'http://marketingpordados.com/wp-json/wp/v2/posts';
 

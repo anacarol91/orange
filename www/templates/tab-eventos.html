@@ -10,7 +10,7 @@
 
       <ion-list id="evento">
 
-      <a class="card item tappable" ng-repeat="evento in eventos" type="item-text-wrap" href="#/tab/eventos/{{evento.id}}">
+      <a class="card item tappable" ng-repeat="evento in eventos | orderBy:'-data_evento'" type="item-text-wrap" href="#/tab/eventos/{{evento.id}}">
         <img ng-src="{{evento.imagem_evento}}">
         <h2>{{evento.nome_do_evento}}</h2>
         <p><i class="ion-ios-location-outline event-icon"></i> {{evento.local_evento}}</p>
