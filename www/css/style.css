@@ -155,6 +155,12 @@
     #home-header .bar {
         height: 75px !important;
     }
+
+    .button-star,
+    .button-star .icon:before{
+      font-size: 37px !important;
+      color: #ffd008;
+    }
 /***************/
 
 
@@ -288,6 +294,24 @@
         font-size: 1.2em;
         margin-right: 5px;
      }
+
+     .star-icon {
+        color: #ffd008;
+     }
+
+     .star-box {
+        display: flex;
+        flex-flow: row;
+        align-items: baseline;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+     }
+
+     #evento .button-icon .icon:before, .button-icon.icon:before {
+        font-size: 37px;
+    }
+
+
 /*********/
 
 /* EVENT DETAIL */
@@ -295,6 +319,11 @@
         color: #e76012;
         font-size: 1.7em;
         margin-right: 7px;
+     }
+
+     .share-icon {
+        margin-right: 15px;
+        color: #666 !important;
      }
 
 

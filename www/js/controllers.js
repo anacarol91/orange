@@ -1,36 +1,16 @@
 angular.module('starter.controllers', [])
 
 .controller('PostsCtrl', function($scope, $http, Posts, $ionicLoading) {
-  $scope.$on('$ionicView.enter', function(e) {
-
-    $ionicLoading.show({
-      delay: 0,
-      showBackdrop: true,
-      showDelay: 0
-    });
-    
-    // You can change this url to experiment with other endpoints
-    var postsApi = 'http://marketingpordados.com/wp-json/wp/v2/posts';
+  $scope.$on('$ionicView.loaded', function(e) {
 
     console.log("Enter PostsCtrl");
+    $ionicLoading.show();
     
-
-    // This should go in a service so we can reuse it
-    $http.get( postsApi ).
-      success(function(data, status, headers, config) {
-        $ionicLoading.hide();
-        $scope.posts = data;
-        console.log( data );
-        
-      }).
-      error(function(data, status, headers, config) {
-        $ionicLoading.hide();
-        console.log( 'Post load error.' );
-      });
+    $scope.getPosts();
+    
   });
 
-  $scope.refreshPosts = function () {
-    $ionicLoading.show();
+  $scope.getPosts = function () {
     var postsApi = 'http://marketingpordados.com/wp-json/wp/v2/posts';
 
     $http.get( postsApi ).
@@ -49,60 +29,62 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('PostCtrl', function($scope, $stateParams, $sce, $http ) {
+.controller('PostCtrl', function($scope, $stateParams, $sce, $http, $ionicLoading, $timeout, $ionicNavBarDelegate ) {
 
   // we get the postID from $stateParams.postId, the query the api for that post
   var singlePostApi = 'http://marketingpordados.com/wp-json/wp/v2/posts/' + $stateParams.postId;
 
-  $http.get( singlePostApi ).
-    success(function(data, status, headers, config) {
-      $scope.post = data;
-      console.log( data );
+  $scope.$on('$ionicView.enter', function() {
+      $ionicLoading.show();
 
-      // must use trustAsHtml to get raw HTML from WordPress
-     // $scope.content = $sce.trustAsHtml(data.content);
+      $timeout(function() {
+          $ionicNavBarDelegate.align('left');
+      });
 
-    }).
-    error(function(data, status, headers, config) {
-      console.log( 'Single post load error.' );
-    });
+      $http.get( singlePostApi ).
+        success(function(data, status, headers, config) {
+          $ionicLoading.hide();
+          $scope.post = data;
+          console.log( data );
+
+        }).
+        error(function(data, status, headers, config) {
+          $ionicLoading.hide();
+          console.log( 'Single post load error.' );
+        });
+  });  
 
 })
 
 
-.controller('EventosCtrl', function($scope, $ionicLoading, $http, Eventos) {
-  $scope.$on('$ionicView.enter', function(e) {
+.controller('EventosCtrl', function($scope, $ionicLoading, $http, Eventos, StorageService) {
+  $scope.$on('$ionicView.loaded', function(e) {
+
+    console.log("Enter EventosCtrl");   
     $ionicLoading.show();
 
-    // You can change this url to experiment with other endpoints
-    var eventosApi = 'http://marketingpordados.com/wp-json/acf/v2/evento/?per_page=100';
+    /* LIMPA LOCAL STORAGE */
+    //StorageService.clear(); 
 
-    console.log("Enter EventosCtrl");    
+    $scope.favoritado = false;
 
-    // This should go in a service so we can reuse it
-    $http.get( eventosApi ).
-      success(function(data, status, headers, config) {
-        $ionicLoading.hide();
-        $scope.eventos = data;
-        console.log( data );
-      }).
-      error(function(data, status, headers, config) {
-        $ionicLoading.hide();
-        console.log( 'Eventos load error.' );
-      });
+    $scope.getEventos();
+    
   });
 
-  $scope.refreshEventos = function () {
+
+  $scope.getEventos = function () {
     var eventosApi = 'http://marketingpordados.com/wp-json/acf/v2/evento';
 
-    $ionicLoading.show();
-
-    // This should go in a service so we can reuse it
     $http.get( eventosApi ).
       success(function(data, status, headers, config) {
         $ionicLoading.hide();
-        $scope.eventos = data;
-        console.log( data );
+
+        var favoritos = StorageService.getAll();
+
+        $scope.eventos = $scope.setFavoritos(data, favoritos);
+
+        console.log('request done: ' + data );
       }).
       error(function(data, status, headers, config) {
         $ionicLoading.hide();
@@ -113,25 +95,98 @@ angular.module('starter.controllers', [])
   }
 
 
+  $scope.setFavoritos = function (eventos, favoritos) {
 
-  })
+    if(favoritos) {
+      for(var i = 0; i < eventos.length; i++) {
+        eventos[i].favoritado = false;   
+      }
 
-.controller('EventoCtrl', function($scope, $stateParams, $http) {
+      for(var i = 0; i < eventos.length; i++) {
+        for(var j = 0; j < favoritos.length; j++) {
+          if(eventos[i].id ===  favoritos[j].id) {
+            eventos[i].favoritado = true;
+          }
+        }      
+      }
+    }
+    return eventos;
+  }
+
+
+  /* FAVORITOS */
+  $scope.addEvento = function (evento) {
+    console.log('EVENTO favoritado');
+    evento.favoritado = true;
+    StorageService.add(evento);
+  };
+
+  $scope.removeEvento = function (evento) {
+    console.log('EVENTO desfavoritado');
+    evento.favoritado = false;
+    StorageService.remove(evento);
+  };
+
+  $scope.favoritar = function(click, evento) {
+    click.preventDefault(); 
+    click.stopPropagation();
+
+    if(evento.favoritado) {
+      $scope.removeEvento(evento);
+    } else {
+        $scope.addEvento(evento);
+    }
+  }
+
+})
+
+.controller('EventoCtrl', function($scope, $stateParams, $http, $ionicLoading, $timeout, $ionicNavBarDelegate) {
   // we get the postID from $stateParams.postId, the query the api for that post
   var singleEventoApi = 'http://marketingpordados.com/wp-json/acf/v2/evento/' + $stateParams.eventoId;
 
-  $http.get( singleEventoApi ).
-    success(function(data, status, headers, config) {
-      $scope.evento = data;
-      console.log( data );
+  $scope.$on('$ionicView.enter', function() {
+      $ionicLoading.show();
 
-      // must use trustAsHtml to get raw HTML from WordPress
-     // $scope.content = $sce.trustAsHtml(data.content);
+      $timeout(function() {
+          $ionicNavBarDelegate.align('left');
+      });
 
-    }).
-    error(function(data, status, headers, config) {
-      console.log( 'Single event load error.' );
-    });
+      $http.get( singleEventoApi ).
+        success(function(data, status, headers, config) {
+          $ionicLoading.hide();
+          $scope.evento = data;
+          console.log( data );
+
+        }).
+        error(function(data, status, headers, config) {
+          $ionicLoading.hide();
+          console.log( 'Single event load error.' );
+        });
+
+  });  
+})
+
+.controller('FavoritosCtrl', function($scope, $state, StorageService) {
+
+  $scope.$on('$ionicView.enter', function() {
+    
+    $scope.getFavoritos();
+
+    console.log($scope.favoritos);
+  })  
+
+  $scope.getFavoritos = function() {
+    $scope.favoritos = StorageService.getAll();
+
+    // if($scope.favoritos) {
+    //   for(var i = 0; i < $scope.favoritos.length; i++) {
+    //    $scope.favoritos[i].favoritado = true;
+    //   }
+    // }
+
+    console.log('request done');
+    $scope.$broadcast('scroll.refreshComplete');
+  }
 })
 
 
@@ -141,6 +196,17 @@ angular.module('starter.controllers', [])
     var msg = data.message;
    // alert(msg.title + ': ' + msg.text);
   });
+
+  // $scope.share = function() {
+  //   $cordovaSocialSharing
+  //     .share("message", 'subject', 'file', 'link') // Share via native share sheet
+  //     .then(function(result) {
+  //       console.log('compartilhado');
+  //     }, function(err) {
+  //       console.log('erro');
+  //       // An error occured. Show a message to the user
+  //     });
+  // }  
 
   $scope.eventos = function() {
     $state.go('tab.eventos');

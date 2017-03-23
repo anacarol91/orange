@@ -4,12 +4,21 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="{{evento.acf.nome_do_evento}}" id="artigo">
+<ion-view ng-controller="EventosCtrl" view-title="{{evento.acf.nome_do_evento}}" id="artigo">
+
+  <ion-nav-buttons side="right">
+      <button class="button-icon ion-android-share-alt share-icon">
+      </button>
+      <button class="button-icon button-star" ng-click="favoritar($event, evento.acf)">
+        <i ng-class="{'icon ion-ios-star-outline': !favoritado, 'icon ion-ios-star': favoritado}"></i>
+      </button>
+  </ion-nav-buttons>
+
   <ion-content id="event-detail" class="padding">
     <img ng-src="{{evento.acf.imagem_evento}}">
 
-    <p style="font-size: 1.3em !important;"><i class="ion-ios-location-outline event-icon"></i> {{evento.acf.local_evento}}</p>
-    <p style="font-size: 1.3em !important;"><i class="ion-ios-clock-outline event-icon"></i> {{evento.acf.data_evento | date: 'dd/MM/yy'}}</p>
+    <p style="font-size: 1.3em !important;"><i ng-show="evento.acf.local_evento" class="ion-ios-location-outline event-icon"></i> {{evento.acf.local_evento}}</p>
+    <p style="font-size: 1.3em !important;"><i ng-show="evento.acf.data_evento" class="ion-ios-clock-outline event-icon"></i> {{evento.acf.data_evento | date: 'dd/MM/yyyy'}}</p>
     <br>
     <p ng-bind-html="evento.acf.descricao_do_evento"></p>
 

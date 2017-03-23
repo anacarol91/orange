@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ionic.cloud', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'ionic.cloud', 'ngStorage', 'starter.controllers', 'starter.services'])
 
 .run(function($ionicPlatform, $ionicPush) {
   $ionicPlatform.ready(function() {
@@ -82,7 +82,8 @@ angular.module('starter', ['ionic', 'ionic.cloud', 'starter.controllers', 'start
     .state('tab', {
     url: '/tab',
     abstract: true,
-    templateUrl: 'templates/tabs.html'
+    templateUrl: 'templates/tabs.html',
+    controller: 'DashCtrl'
   })
 
   // Each tab has its own nav history stack:
@@ -125,12 +126,23 @@ angular.module('starter', ['ionic', 'ionic.cloud', 'starter.controllers', 'start
         }
       }
     })
+
     .state('tab.evento-detail', {
       url: '/eventos/:eventoId',
       views: {
         'tab-eventos': {
           templateUrl: 'templates/evento-detail.html',
           controller: 'EventoCtrl'
+        }
+      }
+    })
+
+    .state('tab.favoritos', {
+      url: '/favoritos',
+      views: {
+        'tab-favoritos': {
+          templateUrl: 'templates/tab-favoritos.html',
+          controller: 'FavoritosCtrl'
         }
       }
     })

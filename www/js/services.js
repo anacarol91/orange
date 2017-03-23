@@ -41,4 +41,32 @@ angular.module('starter.services', [])
       return null;
     }
   };
-});
+})
+
+.factory('StorageService', function ($localStorage) {
+
+  $localStorage = $localStorage.$default({
+    favoritos: []
+  });
+
+  var _getAll = function () {
+    return $localStorage.favoritos;
+  };
+  var _add = function (thing) {
+    $localStorage.favoritos.push(thing);
+  }
+  var _remove = function (thing) {
+    $localStorage.favoritos.splice($localStorage.favoritos.indexOf(thing), 1);
+  }
+
+  var _clear = function() {
+    $localStorage.$reset();
+  }
+  
+  return {
+      getAll: _getAll,
+      add: _add,
+      remove: _remove,
+      clear: _clear
+    };
+  });

@@ -4,11 +4,19 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="Marketing Por Dados" id="artigo">
+<ion-view ng-controller="EventosCtrl" view-title="{{post.title.rendered}}" id="artigo">
 
-  <ion-nav-title>
+  <ion-nav-buttons side="right">
+      <button class="button-icon ion-android-share-alt share-icon">
+      </button>
+      <button class="button-icon button-star" ng-click="favoritar($event, evento.acf)">
+        <i ng-class="{'icon ion-ios-star-outline': !favoritado, 'icon ion-ios-star': favoritado}"></i>
+      </button>
+  </ion-nav-buttons>
+
+  <!-- <ion-nav-title>
     <img id="logo-artigo" src="img/mktpd.png" alt="">
-  </ion-nav-title> 
+  </ion-nav-title>  -->
   
   <ion-content class="padding">
     <img ng-src="{{post.better_featured_image.source_url}}">
