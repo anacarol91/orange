@@ -1,26 +1,20 @@
-<!--
-  This template loads for the 'tab.friend-detail' state (app.js)
-  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
-  The FriendsCtrl pulls data from the Friends service (service.js)
-  The Friends service returns an array of friend data
--->
-<ion-view ng-controller="EventosCtrl" view-title="{{evento.acf.nome_do_evento}}" id="artigo">
+<ion-view view-title="{{evento.nome_do_evento}}" id="artigo">
 
   <ion-nav-buttons side="right">
       <button class="button-icon ion-android-share-alt share-icon">
       </button>
-      <button class="button-icon button-star" ng-click="favoritar($event, evento.acf)">
-        <i ng-class="{'icon ion-ios-star-outline': !favoritado, 'icon ion-ios-star': favoritado}"></i>
+      <button class="button-icon button-star" ng-click="favoritarEvento($event, evento)">
+        <i ng-class="{'icon ion-ios-star-outline': !evento.favoritado, 'icon ion-ios-star': evento.favoritado}"></i>
       </button>
   </ion-nav-buttons>
 
-  <ion-content id="event-detail" class="padding">
-    <img ng-src="{{evento.acf.imagem_evento}}">
+  <ion-content ng-show="evento" id="event-detail" class="padding">
+    <img ng-src="{{evento.imagem_evento}}">
 
-    <p style="font-size: 1.3em !important;"><i ng-show="evento.acf.local_evento" class="ion-ios-location-outline event-icon"></i> {{evento.acf.local_evento}}</p>
-    <p style="font-size: 1.3em !important;"><i ng-show="evento.acf.data_evento" class="ion-ios-clock-outline event-icon"></i> {{evento.acf.data_evento | date: 'dd/MM/yyyy'}}</p>
+    <p style="font-size: 1.3em !important;"><i class="ion-ios-location-outline event-icon"></i> {{evento.local_evento}}</p>
+    <p style="font-size: 1.3em !important;"><i class="ion-ios-clock-outline event-icon"></i> {{evento.data_evento | date: 'dd/MM/yyyy'}}</p>
     <br>
-    <p ng-bind-html="evento.acf.descricao_do_evento"></p>
+    <p ng-bind-html="evento.descricao_do_evento"></p>
 
   </ion-content>
 </ion-view>

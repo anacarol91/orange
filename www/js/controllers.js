@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('PostsCtrl', function($scope, $http, Posts, $ionicLoading) {
+.controller('PostsCtrl', function($scope, $http, Posts, $ionicLoading, StorageService) {
   $scope.$on('$ionicView.loaded', function(e) {
 
     console.log("Enter PostsCtrl");
@@ -16,7 +16,10 @@ angular.module('starter.controllers', [])
     $http.get( postsApi ).
       success(function(data, status, headers, config) {
         $ionicLoading.hide();
-        $scope.posts = data;
+
+        var favoritos = StorageService.getPostsFavoritos();
+
+        $scope.posts = utils.setFavoritos(data, favoritos);
         console.log( data );
       }).
       error(function(data, status, headers, config) {
@@ -29,7 +32,7 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('PostCtrl', function($scope, $stateParams, $sce, $http, $ionicLoading, $timeout, $ionicNavBarDelegate ) {
+.controller('PostCtrl', function($scope, $stateParams, $sce, $http, $ionicLoading, $timeout, $ionicNavBarDelegate,StorageService) {
 
   // we get the postID from $stateParams.postId, the query the api for that post
   var singlePostApi = 'http://marketingpordados.com/wp-json/wp/v2/posts/' + $stateParams.postId;
@@ -44,7 +47,10 @@ angular.module('starter.controllers', [])
       $http.get( singlePostApi ).
         success(function(data, status, headers, config) {
           $ionicLoading.hide();
-          $scope.post = data;
+
+          var favoritos = StorageService.getPostsFavoritos();
+
+          $scope.post = utils.setFavorito(data, favoritos);
           console.log( data );
 
         }).
@@ -66,8 +72,6 @@ angular.module('starter.controllers', [])
     /* LIMPA LOCAL STORAGE */
     //StorageService.clear(); 
 
-    $scope.favoritado = false;
-
     $scope.getEventos();
     
   });
@@ -80,11 +84,11 @@ angular.module('starter.controllers', [])
       success(function(data, status, headers, config) {
         $ionicLoading.hide();
 
-        var favoritos = StorageService.getAll();
+        var favoritos = StorageService.getEventosFavoritos();
 
-        $scope.eventos = $scope.setFavoritos(data, favoritos);
+        $scope.eventos = utils.setFavoritos(data, favoritos);
 
-        console.log('request done: ' + data );
+        console.log(data );
       }).
       error(function(data, status, headers, config) {
         $ionicLoading.hide();
@@ -94,76 +98,48 @@ angular.module('starter.controllers', [])
     $scope.$broadcast('scroll.refreshComplete');
   }
 
-
-  $scope.setFavoritos = function (eventos, favoritos) {
-
-    if(favoritos) {
-      for(var i = 0; i < eventos.length; i++) {
-        eventos[i].favoritado = false;   
-      }
-
-      for(var i = 0; i < eventos.length; i++) {
-        for(var j = 0; j < favoritos.length; j++) {
-          if(eventos[i].id ===  favoritos[j].id) {
-            eventos[i].favoritado = true;
-          }
-        }      
-      }
-    }
-    return eventos;
-  }
-
-
-  /* FAVORITOS */
-  $scope.addEvento = function (evento) {
-    console.log('EVENTO favoritado');
-    evento.favoritado = true;
-    StorageService.add(evento);
-  };
-
-  $scope.removeEvento = function (evento) {
-    console.log('EVENTO desfavoritado');
-    evento.favoritado = false;
-    StorageService.remove(evento);
-  };
-
-  $scope.favoritar = function(click, evento) {
-    click.preventDefault(); 
-    click.stopPropagation();
-
-    if(evento.favoritado) {
-      $scope.removeEvento(evento);
-    } else {
-        $scope.addEvento(evento);
-    }
-  }
-
 })
 
-.controller('EventoCtrl', function($scope, $stateParams, $http, $ionicLoading, $timeout, $ionicNavBarDelegate) {
-  // we get the postID from $stateParams.postId, the query the api for that post
-  var singleEventoApi = 'http://marketingpordados.com/wp-json/acf/v2/evento/' + $stateParams.eventoId;
+.controller('EventoCtrl', function($scope, $stateParams, $http, $ionicLoading, $timeout, $ionicNavBarDelegate, StorageService) {
+  
 
-  $scope.$on('$ionicView.enter', function() {
-      $ionicLoading.show();
+  $scope.$on('$ionicView.enter', function() {     
 
       $timeout(function() {
           $ionicNavBarDelegate.align('left');
       });
 
-      $http.get( singleEventoApi ).
-        success(function(data, status, headers, config) {
-          $ionicLoading.hide();
-          $scope.evento = data;
-          console.log( data );
-
-        }).
-        error(function(data, status, headers, config) {
-          $ionicLoading.hide();
-          console.log( 'Single event load error.' );
-        });
-
   });  
+
+  $scope.$on('$ionicView.loaded', function() {     
+
+    $ionicLoading.show();
+    $scope.getEvento();
+
+  }); 
+
+  $scope.getEvento = function() {    
+
+    // we get the postID from $stateParams.postId, the query the api for that post
+    var singleEventoApi = 'http://marketingpordados.com/wp-json/acf/v2/evento/' + $stateParams.eventoId;
+
+    $http.get( singleEventoApi ).
+      success(function(data, status, headers, config) {
+        $ionicLoading.hide();
+
+        var favoritos = StorageService.getEventosFavoritos();
+
+        data.acf.id = parseInt($stateParams.eventoId);
+        $scope.evento = utils.setFavorito(data.acf, favoritos);
+
+        console.log(data );
+
+      }).
+      error(function(data, status, headers, config) {
+        $ionicLoading.hide();
+        console.log( 'Single event load error.' );
+      });
+  }
 })
 
 .controller('FavoritosCtrl', function($scope, $state, StorageService) {
@@ -172,11 +148,13 @@ angular.module('starter.controllers', [])
     
     $scope.getFavoritos();
 
-    console.log($scope.favoritos);
+   // console.log($scope.favoritos);
   })  
 
   $scope.getFavoritos = function() {
-    $scope.favoritos = StorageService.getAll();
+
+    $scope.eventosFavoritos = StorageService.getEventosFavoritos();
+    $scope.postsFavoritos = StorageService.getPostsFavoritos();
 
     // if($scope.favoritos) {
     //   for(var i = 0; i < $scope.favoritos.length; i++) {
@@ -190,7 +168,7 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('DashCtrl', function($scope, $state, $ionicPush) {
+.controller('DashCtrl', function($scope, $state, $ionicPush, StorageService) {
 
   $scope.$on('cloud:push:notification', function(event, data) {
     var msg = data.message;
@@ -214,5 +192,53 @@ angular.module('starter.controllers', [])
 
   $scope.blog = function() {
     $state.go('tab.blog');
+  }
+
+  /* EVENTOS FAVORITOS */
+  $scope.addEvento = function (item) {
+    console.log('EVENTO favoritado');
+    item.favoritado = true;
+    StorageService.addEvento(item);
+  };
+
+  $scope.removeEvento = function (item) {
+    console.log('EVENTO desfavoritado');
+    item.favoritado = false;
+    StorageService.removeEvento(item);
+  };
+
+  $scope.favoritarEvento = function(click, item) {
+    click.preventDefault(); 
+    click.stopPropagation();
+
+    if(item.favoritado) {
+      $scope.removeEvento(item);
+    } else {
+        $scope.addEvento(item);
+    }
+  }
+
+  /* POSTS FAVORITOS */
+  $scope.addPost = function (item) {
+    console.log('POST favoritado');
+    item.favoritado = true;
+    StorageService.addPost(item);
+  };
+
+  $scope.removePost = function (item) {
+    console.log('POST desfavoritado');
+    item.favoritado = false;
+    StorageService.removePost(item);
+  };
+
+  $scope.favoritarPost = function(click, item) {
+    click.preventDefault(); 
+    click.stopPropagation();
+
+    if(item.favoritado) {
+      $scope.removePost(item);
+    } else {
+        $scope.addPost(item);
+    }
   }
 })

@@ -10,11 +10,16 @@
 
     <ion-list id="blog">
 
-      <a class="card item tappable" ng-repeat="post in posts" type="item-text-wrap" href="#/tab/blog/{{post.id}}">
+      <a ng-show="post" class="card item tappable" ng-repeat="post in posts" type="item-text-wrap" href="#/tab/blog/{{post.id}}">
         <img ng-src="{{post.better_featured_image.source_url}}">
-        <p> {{post.date | date: 'dd/MM/yy'}}</p>
+
+        <div class="star-box">
+          <p> {{post.date | date: 'dd/MM/yy'}}</p>
+          <button class="button button-icon star-icon" ng-click="favoritarPost($event, post)">
+           <i ng-class="{'icon ion-ios-star-outline': !post.favoritado, 'icon ion-ios-star': post.favoritado}"></i>
+          </button>          
+        </div> 
         <h2>{{post.title.rendered}}</h2>
-        <!-- <p ng-bind-html="post.excerpt.rendered"></p> -->
 
       </a>
     </ion-list>

@@ -46,17 +46,28 @@ angular.module('starter.services', [])
 .factory('StorageService', function ($localStorage) {
 
   $localStorage = $localStorage.$default({
-    favoritos: []
+    eventosFavoritos: [],
+    postsFavoritos: []
   });
 
-  var _getAll = function () {
-    return $localStorage.favoritos;
+  var _getEventosFavoritos = function () {
+    return $localStorage.eventosFavoritos;
   };
-  var _add = function (thing) {
-    $localStorage.favoritos.push(thing);
+  var _addEvento = function (thing) {
+    $localStorage.eventosFavoritos.push(thing);
   }
-  var _remove = function (thing) {
-    $localStorage.favoritos.splice($localStorage.favoritos.indexOf(thing), 1);
+  var _removeEvento = function (thing) {
+    $localStorage.eventosFavoritos.splice($localStorage.eventosFavoritos.indexOf(thing), 1);
+  }
+
+  var _getPostsFavoritos = function () {
+    return $localStorage.postsFavoritos;
+  };
+  var _addPost = function (thing) {
+    $localStorage.postsFavoritos.push(thing);
+  }
+  var _removePost = function (thing) {
+    $localStorage.postsFavoritos.splice($localStorage.postsFavoritos.indexOf(thing), 1);
   }
 
   var _clear = function() {
@@ -64,9 +75,12 @@ angular.module('starter.services', [])
   }
   
   return {
-      getAll: _getAll,
-      add: _add,
-      remove: _remove,
+      getEventosFavoritos: _getEventosFavoritos,
+      addEvento: _addEvento,
+      removeEvento: _removeEvento,
+      getPostsFavoritos: _getPostsFavoritos,
+      addPost: _addPost,
+      removePost: _removePost,
       clear: _clear
     };
   });

@@ -10,18 +10,18 @@
 
     <ion-list id="evento">
 
-      <a class="card item tappable" ng-repeat="evento in eventos" type="item-text-wrap" href="#/tab/eventos/{{evento.id}}">
+      <a ng-show="evento" class="card item tappable" ng-repeat="evento in eventos" type="item-text-wrap" href="#/tab/eventos/{{evento.id}}">
         <img ng-src="{{evento.imagem_evento}}">
 
         <div class="star-box">
           <h2>{{evento.nome_do_evento}}</h2>
-          <button ng-show="evento.nome_do_evento" class="button button-icon star-icon" ng-click="favoritar($event, evento)">
+          <button class="button button-icon star-icon" ng-click="favoritarEvento($event, evento)">
            <i ng-class="{'icon ion-ios-star-outline': !evento.favoritado, 'icon ion-ios-star': evento.favoritado}"></i>
           </button>          
         </div>  
         
-        <p><i ng-show="evento.local_evento" class="ion-ios-location-outline event-icon"></i> {{evento.local_evento}}</p>
-        <p><i ng-show="evento.local_evento" class="ion-ios-clock-outline event-icon"></i> {{evento.data_evento | date: 'dd/MM/yyyy'}}</p>
+        <p><i class="ion-ios-location-outline event-icon"></i> {{evento.local_evento}}</p>
+        <p><i class="ion-ios-clock-outline event-icon"></i> {{evento.data_evento | date: 'dd/MM/yyyy'}}</p>
         
       </a>
     </ion-list>
